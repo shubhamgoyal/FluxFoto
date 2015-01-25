@@ -12,12 +12,19 @@ $(document).ready(function () {
             speedMultiplier = 5,
             spinner,
     
-            totalFrames = 18,
+            totalFrames = 0,
             currentFrame = 0,
             frames = [],
             endFrame = 0,
             loadedImages = 0,
             isDirectionReversed = true;
+      function readConfigFile() {
+            $.get('config.txt', function(myContentFile) {
+                  var lines = myContentFile.split("\n");
+                  totalFrames = parseInt(lines[0]);
+            },
+            'text');
+      }
       function addSpinner () {
     spinner = new CanvasLoader("spinner");
     spinner.setShape("spiral");
@@ -159,7 +166,7 @@ function trackPointer(event) {
                     }
             }
     };
-
+readConfigFile();
 addSpinner();
 loadImage();
 });
